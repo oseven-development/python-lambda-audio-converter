@@ -20,10 +20,10 @@ service: aws-python3 # NOTE: update this with your service name
 provider:
   name: aws
   runtime: python3.7
-
+  region: eu-central-1
 # you can overwrite defaults here
 #  stage: dev
-#  region: us-east-1
+   
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -56,7 +56,7 @@ provider:
 
 functions:
   converter:
-    handler: handler.converter
+    handler: src/handler.converter
     events:
       - http:
           path: test
