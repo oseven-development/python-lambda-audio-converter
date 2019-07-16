@@ -11,14 +11,15 @@ FFMPEG_STATIC = "/var/task/ffmpeg"
 def converter(event, context):
     # decode audio
     # print(event)
-    print(event['body']['audio'])
+    req = json.loads(event)['body']['audio']
+    print(req)
     # print(data)
     # print(req)
     # print(type(req))
     # print(req)
     # print(event['body']['body'])
     # print(event['body'])
-    decoded_audio = base64.b64decode(event['body']['audio'])
+    decoded_audio = base64.b64decode(req)
     # erstellt .m4a
     with open('/tmp/audio.m4a', 'wb') as file_:
         file_.write(decoded_audio)
