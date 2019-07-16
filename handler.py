@@ -11,12 +11,9 @@ FFMPEG_STATIC = "/var/task/ffmpeg"
 
 def converter(event, context):
     # decode audio
-    # ! hier muss noch der event context hin
+    print(event['body'])
+    # print(event['body'])
     decoded_audio = base64.b64decode(event['body'])
-    # create placeholder files
-    subprocess.call(['touch', '/tmp/audio.m4a'])
-    subprocess.call(['touch', '/tmp/fileout.flac'])
-
     # erstellt .m4a
     with open('/tmp/audio.m4a', 'wb') as file_:
         file_.write(decoded_audio)
@@ -27,9 +24,6 @@ def converter(event, context):
     with open("/tmp/fileout.flac", "rb") as audio_file:
         encoded_flac = base64.b64encode(audio_file.read())
     # removed file for new funktion call
-    os.remove("/tmp/fileout.flac")
-    os.remove("/tmp/audio.m4a")
-
     # erstellt response
     res = {
         "statusCode": 200,
@@ -39,5 +33,10 @@ def converter(event, context):
         },
         "body": json.dumps(encoded_flac.decode("utf-8"))
     }
-
+    os.remove("/tmp/fileout.flac")
+    os.remove("/tmp/audio.m4a")
+    print(res)
     return res
+
+
+#
