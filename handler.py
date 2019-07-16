@@ -12,11 +12,11 @@ def converter(event, context):
     # decode audio
     print(event)
     print(event['body'])
-    body = json.loads(event['body']['body'])
-    print(body)
+    req = json.loads(event['body'])
+    print(req)
     # print(event['body']['body'])
     # print(event['body'])
-    decoded_audio = base64.b64decode(body)
+    decoded_audio = base64.b64decode(req['body'])
     # erstellt .m4a
     with open('/tmp/audio.m4a', 'wb') as file_:
         file_.write(decoded_audio)
