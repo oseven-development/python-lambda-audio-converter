@@ -13,8 +13,8 @@ FFMPEG_STATIC = "/var/task/ffmpeg"
 def converter(event, context):
     # decode audio
     # ! hier muss noch der event context hin
-    decoded_audio = base64.b64decode(event['audio'])
-    #erstellt .m4a
+    decoded_audio = base64.b64decode(event['body'])
+    # erstellt .m4a
     with open('/tmp/audio.m4a', 'wb') as file_:
         file_.write(decoded_audio)
     # converter es
@@ -25,7 +25,8 @@ def converter(event, context):
         encoded_flac = base64.b64encode(audio_file.read())
     # erstellt response
     res = {
-        'statusCode': 200,
-        'body': json.dumps(encoded_flac.decode("utf-8"))
+        "statusCode": 200,
+        "body": json.dumps(encoded_flac.decode("utf-8"))
     }
-    return json.dumps(res)
+
+    return res
