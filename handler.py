@@ -2,7 +2,7 @@ import subprocess
 import base64
 import json
 import datetime
-
+import os
 # os.system("cp ffmpeg /tmp") os.system("chmod 775 /tmp/ffmpeg")
 
 FFMPEG_STATIC = "/var/task/ffmpeg"
