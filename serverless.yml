@@ -17,9 +17,6 @@ functions:
     handler: handler.converter
     events:
       - http:
-          path: test
-          method: get
-      - http:
           path: convert
           method: post
           cors: true

@@ -26,6 +26,10 @@ def converter(event, context):
     # erstellt response
     res = {
         "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
         "body": json.dumps(encoded_flac.decode("utf-8"))
     }
 
