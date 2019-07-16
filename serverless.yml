@@ -14,7 +14,7 @@ provider:
 
 functions:
   converter:
-    handler: src/handler.converter
+    handler: handler.converter
     events:
       - http:
           path: test
