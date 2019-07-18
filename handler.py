@@ -13,7 +13,7 @@ FFMPEG_STATIC = "/var/task/ffmpeg"
 
 def converter(event, context):
     print(event)
-    with open("/tmp/audio.m4a", "wb") as audio_file:
+    with open("/tmp/audio.m4a", "w+") as audio_file:
         audio_file.write(event['body'])
     
     tmp_file = open('/tmp/fileout.flac', 'w+')
