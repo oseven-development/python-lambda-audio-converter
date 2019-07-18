@@ -16,7 +16,7 @@ def converter(event, context):
     headers = event['headers']
     body = event['body']
 
-    ctype, pdict = cgi.parse_header(headers['Content-Type'])
+    ctype, pdict = cgi.parse_header(headers['content-type'])
 
     if ctype == 'multipart/form-data':
         pdict['CONTENT-LENGTH'] = int(headers['content-length'])
