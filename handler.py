@@ -12,14 +12,14 @@ FFMPEG_STATIC = "/var/task/ffmpeg"
 
 
 def converter(event, context):
-
+    print(event)
     headers = event['headers']
     body = event['body']
 
     ctype, pdict = cgi.parse_header(headers['Content-Type'])
 
     if ctype == 'multipart/form-data':
-        pdict['CONTENT-LENGTH'] = int(headers['Content-Length'])
+        pdict['CONTENT-LENGTH'] = int(headers['content-length'])
 
         pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
 
