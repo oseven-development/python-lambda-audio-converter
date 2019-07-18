@@ -1,7 +1,7 @@
 
 plugins:
   - serverless-offline-python
-  - serverless-apigw-binary
+  # - serverless-apigw-binary
 
 
 service: caligraf-audio-converter # NOTE: update this with your service name
