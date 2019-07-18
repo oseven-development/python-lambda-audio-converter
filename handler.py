@@ -21,7 +21,7 @@ def converter(event, context):
     tmp_file = open('/tmp/fileout.flac', 'w+')
     tmp_file.close()
 
-    subprocess.run(['ffmpeg', "-i", "/tmp/audio.m4a",
+    subprocess.run([FFMPEG_STATIC, "-i", "/tmp/audio.m4a",
                 "-f", "flac", "/tmp/fileout.flac", "-y"])
     with open("/tmp/fileout.flac", "rb") as audio_file:
       encoded_flac = base64.b64encode(audio_file.read())
