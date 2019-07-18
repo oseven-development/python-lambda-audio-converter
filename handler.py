@@ -13,29 +13,17 @@ FFMPEG_STATIC = "/var/task/ffmpeg"
 
 def converter(event, context):
     print(event)
-    headers = event['headers']
-    body = event['body']
-
-    ctype, pdict = cgi.parse_header(headers['content-type'])
-
-    if ctype == 'multipart/form-data':
-        pdict['CONTENT-LENGTH'] = int(headers['content-length'])
-
-        pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
-
-        b = bytes(body, 'iso-8859-1')
-        fields = cgi.parse_multipart(BytesIO(b), pdict)
-
-        out = open('/tmp/audio.m4a', 'w+b')
-        out.write(fields['data'][0])
-        out.close()
-
-        tmp_file = open('/tmp/fileout.flac', 'w+')
-        tmp_file.close()
+    with open("audio.m4a", "wb") as audio_file:
+        audio_file.write(event['body'])
+    
+    tmp_file = open('/tmp/fileout.flac', 'w+')
+    tmp_file.close()
 
     subprocess.run([FFMPEG_STATIC, "-i", "/tmp/audio.m4a",
                 "-f", "flac", "/tmp/fileout.flac", "-y"])
-
+    with open("/tmp/fileout.flac", "rb") as audio_file:
+      encoded_flac = base64.b64encode(audio_file.read())
+      
     res = {
           "statusCode": 200,
           "headers": {

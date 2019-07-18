@@ -3,11 +3,6 @@ plugins:
   - serverless-offline-python
   - serverless-apigw-binary
 
-custom:
-  apigwBinary:
-    types:           #list of mime-types
-      - 'audio/mp4'
-      - 'multipart/form-data'
 
 service: caligraf-audio-converter # NOTE: update this with your service name
 
