@@ -3,12 +3,43 @@ import base64
 import json
 import datetime
 import os
+import cgi
+from io import BytesIO
+
+
 # os.system("cp ffmpeg /tmp") os.system("chmod 775 /tmp/ffmpeg")
 
 FFMPEG_STATIC = "/var/task/ffmpeg"
 
 
 def converter(event, context):
+
+    headers = event['headers']
+    body = event['body']
+
+    ctype, pdict = cgi.parse_header(headers['Content-Type'])
+    # print(pdict)
+    pdict['CONTENT-LENGTH'] = int(headers['Content-Length'])
+
+    pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+
+    b = bytes(body, 'utf-8')
+    fields = cgi.parse_multipart(BytesIO(b), pdict)
+    # print(fields['data'][0])
+    out = open('audio.mp4', 'w+b')
+    out.write(fields['data'][0])
+    out.close()
+    print("-----------------------------")
+    # print(pdict)
+
+    # print(fields)
+    # if ctype == 'multipart/form-data':
+    #     fields = cgi.parse_multipart(body, pdict)
+    # messagecontent = fields.get('message')
+
+
+def converter2(event, context):
+    print(event)
     # decode audio
     # print(event)
     req = json.loads(event)['body']['audio']
